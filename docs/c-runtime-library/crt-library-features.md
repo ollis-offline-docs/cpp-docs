@@ -106,6 +106,14 @@ Be careful if your program passes certain CRT resources across DLL boundaries. R
 
 ### Problems with statically linked CRT libraries
 
+There are three forms of the C Run-time library provided with the Win32 SDK:
+
+- `LIBC.LIB` is a statically linked library for single-threaded programs.
+- `LIBCMT.LIB` is a statically linked library that supports multithreaded programs.
+- `CRTDLL.LIB` is an import library for `CRTDLL.DLL` that also supports multithreaded programs. `CRTDLL.DLL` is part of Windows NT.
+
+Microsoft Visual C++ 32-bit edition contains these three forms as well, however, the CRT in a DLL is named `MSVCRT.LIB`. The DLL is redistributable. Its name depends on the version of VC++ (that is, `MSVCRT10.DLL` or `MSVCRT20.DLL`). Note however, that `MSVCRT10.DLL` is not supported on Win32s, while `CRTDLL.LIB` is supported on Win32s. `MSVCRT20.DLL` comes in two versions: one for Windows NT and the other for Win32s.
+
 If an application that makes C runtime calls links to a DLL that also makes C runtime calls, be aware that if they are both linked with one of the statically linked C runtime libraries, the `.EXE` and DLL will have separate copies of all C runtime functions and global variables. This means that C runtime data cannot be shared between the `.EXE` and the DLL. Some of the problems that can occur are:
 
 - Passing buffered stream handles from the .EXE/DLL to the other module
