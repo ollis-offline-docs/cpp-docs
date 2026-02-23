@@ -96,10 +96,9 @@ The Win32 SDK samples all use the first method. Refer to the Win32 Programmer's 
 
 If you wish to use the second method and call the CRT initialization code yourself, instead of using `DllMainCRTStartup()` and `DllMain()`, there are two techniques:
 
-1. If there's no entry function that performs initialization code, specify `_CRT_INIT()` as the entry point of the DLL. Assuming that you've included `NTWIN32.MAK`, which defines `DLLENTRY` as `@12`, add the option to the DLL's link line: `-entry:_CRT_INIT$(DLLENTRY)`.
 1. If you do have your own DLL entry point, do the following in the entry point:
 
-   a. Use this prototype for `_CRT_INIT()`: `BOOL WINAPI _CRT_INIT(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved);`
+   a. Use this prototype (defined in `process.h` when `_DECL_DLLMAIN` is defined) for `_CRT_INIT()`: `BOOL WINAPI _CRT_INIT(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved);`
    
    For information on `_CRT_INIT()` return values, see the documentation for `DllEntryPoint`; the same values are returned.
    
@@ -130,17 +129,6 @@ BOOL WINAPI DllEntryPoint(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved
 
 > [!NOTE]
 > This isn't necessary if you're using `DllMain()` and `-entry:_DllMainCRTStartup@12`.
-
-### Using NTWIN32.MAK to simplify the build process
-
-There are macros defined in `NTWIN32.MAK` that can be used to simplify your makefiles and to ensure that they're properly built to avoid conflicts. For this reason, Microsoft highly recommends using `NTWIN32.MAK `and its macros.
-
-For compilation, use: `$(cvarsdll)` for apps/DLLs using CRT in a DLL.
-
-For linking, use one of the following:
-
-- `$(conlibsdll)` for console apps/DLLs using CRT in a DLL
-- `$(guilibsdll)` for GUI apps using CRT in a DLL
 
 <a name="initializing-regular-dlls"></a>
 
