@@ -3,9 +3,11 @@ description: "Learn more about: ActiveX Controls"
 title: "ActiveX Controls"
 ms.date: "09/12/2018"
 helpviewer_keywords: ["ActiveX controls [MFC]"]
-ms.assetid: 52aaec4d-3889-402e-b57d-758078f8ac57
 ---
 # ActiveX Controls
+
+>[!NOTE]
+> The Microsoft Foundation Classes (MFC) library continues to be supported. However, we're no longer adding features or updating the documentation.
 
 In Visual Studio you can create ActiveX controls using MFC or ATL.
 
