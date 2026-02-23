@@ -1,7 +1,7 @@
 ---
 description: "Learn more about: DLLs and Microsoft C++ runtime library behavior"
 title: "DLLs and Visual C++ runtime library behavior"
-ms.date: "08/19/2019"
+ms.date: 02/23/2026
 f1_keywords: ["_DllMainCRTStartup", "CRT_INIT"]
 helpviewer_keywords: ["DLLs [C++], entry point function", "process detach [C++]", "process attach [C++]", "DLLs [C++], run-time library behavior", "DllMain function", "_CRT_INIT macro", "_DllMainCRTStartup method", "run-time [C++], DLL startup sequence", "DLLs [C++], startup sequence"]
 ---
@@ -87,8 +87,8 @@ extern "C" BOOL WINAPI DllMain (
 
 When building a DLL that uses any of the C runtime libraries, in order to ensure that the CRT is properly initialized, either:
 
-1. The initialization function must be named `DllMain()` and the entry point must be specified with the linker option `-entry:_DllMainCRTStartup@12`, or
-1. The DLL's entry point must explicitly call `_CRT_INIT()` on process attach and process detach. This is only relevant if you are using `/NOENTRY` or have a custom entry point. We don't recommend using `/NOENTRY` or a custom entry point, if possible, because you would have to duplicate all of the initialization and termination code that `_DllMainCRTStartup` provides, in the same order.
+- The initialization function must be named `DllMain()` and the entry point must be specified with the linker option `-entry:_DllMainCRTStartup@12` This is the default behavior when building a DLL (the `@12` is x86-only because that platform uses `stdcall`), or
+- The DLL's entry point must explicitly call `_CRT_INIT()` on process attach and process detach. This is only relevant if you are using `/NOENTRY` or have a custom entry point. We don't recommend using `/NOENTRY` or a custom entry point, if possible, because you would have to duplicate all of the initialization and termination code that `_DllMainCRTStartup` provides, in the same order.
 
 This permits the C runtime libraries to properly allocate and initialize C runtime data when a process or thread is attaching to the DLL, to properly clean up C runtime data when a process is detaching from the DLL, and for global C++ objects in the DLL to be properly constructed and destructed.
 
