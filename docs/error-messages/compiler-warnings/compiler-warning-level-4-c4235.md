@@ -21,7 +21,7 @@ The following example generates C4235 as the [Inline Assembler](../../assembler/
 
 ```cpp
 // C4235.cpp
-// processor: x64
+// processor: x64 (set compiler environment with vcvars64.bat)
 
 int main()
 {
